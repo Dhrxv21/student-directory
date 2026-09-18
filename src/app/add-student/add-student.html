@@ -1,0 +1,169 @@
+<main class="add-student-page">
+
+  <section class="form-card">
+
+    <!-- Return to the student directory -->
+    <a
+      routerLink="/"
+      class="back-link"
+    >
+      ← Back to student directory
+    </a>
+
+    <!-- Page introduction -->
+    <p class="eyebrow">
+      STUDENT DIRECTORY
+    </p>
+
+    <h1>Add a new student</h1>
+
+    <p class="description">
+      Enter the student's name and score to add a new
+      record to the directory.
+    </p>
+
+    <!--
+      Connect the HTML form to the studentForm
+      FormGroup created in add-student.ts.
+    -->
+    <form
+      [formGroup]="studentForm"
+      (ngSubmit)="onSubmit()"
+      novalidate
+    >
+
+      <!-- Student name field -->
+      <div class="form-field">
+
+        <label for="studentName">
+          Student name
+        </label>
+
+        <!--
+          formControlName connects this input to the
+          name control inside studentForm.
+        -->
+        <input
+          id="studentName"
+          type="text"
+          formControlName="name"
+          placeholder="Enter student name"
+          autocomplete="name"
+        >
+
+        <!--
+          Only show name errors after the field has
+          been touched and is invalid.
+        -->
+        @if (
+          nameControl.invalid &&
+          nameControl.touched
+        ) {
+
+          <div class="validation-message">
+
+            <!-- Required name error -->
+            @if (
+              nameControl.hasError('required')
+            ) {
+              <p>
+                Student name is required.
+              </p>
+            }
+
+            <!-- Minimum name length error -->
+            @if (
+              nameControl.hasError('minlength')
+            ) {
+              <p>
+                Student name must be at least
+                2 characters long.
+              </p>
+            }
+
+          </div>
+
+        }
+
+      </div>
+
+      <!-- Student score field -->
+      <div class="form-field">
+
+        <label for="studentScore">
+          Student score
+        </label>
+
+        <!--
+          formControlName connects this input to the
+          score control inside studentForm.
+        -->
+        <input
+          id="studentScore"
+          type="number"
+          formControlName="score"
+          placeholder="Enter a score from 0 to 100"
+          min="0"
+          max="100"
+        >
+
+        <!--
+          Only show score errors after the field has
+          been touched and is invalid.
+        -->
+        @if (
+          scoreControl.invalid &&
+          scoreControl.touched
+        ) {
+
+          <div class="validation-message">
+
+            <!-- Required score error -->
+            @if (
+              scoreControl.hasError('required')
+            ) {
+              <p>
+                Student score is required.
+              </p>
+            }
+
+            <!-- Minimum score error -->
+            @if (
+              scoreControl.hasError('min')
+            ) {
+              <p>
+                Student score cannot be below 0.
+              </p>
+            }
+
+            <!-- Maximum score error -->
+            @if (
+              scoreControl.hasError('max')
+            ) {
+              <p>
+                Student score cannot be above 100.
+              </p>
+            }
+
+          </div>
+
+        }
+
+      </div>
+
+      <!--
+        The button remains disabled until every
+        form control is valid.
+      -->
+      <button
+        type="submit"
+        [disabled]="studentForm.invalid"
+      >
+        Add student
+      </button>
+
+    </form>
+
+  </section>
+
+</main>

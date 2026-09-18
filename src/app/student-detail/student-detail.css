@@ -1,0 +1,94 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  color: white;
+  background:
+    radial-gradient(
+      circle at 70% 20%,
+      rgba(124, 58, 237, 0.25),
+      transparent 30rem
+    ),
+    #050816;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.detail-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: grid;
+  place-items: center;
+}
+
+.detail-card {
+  width: min(500px, 100%);
+  padding: clamp(28px, 6vw, 50px);
+  border: 1px solid rgba(151, 166, 255, 0.2);
+  border-radius: 28px;
+  background: rgba(13, 20, 43, 0.82);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+.label {
+  color: #a5b4fc;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.avatar {
+  width: 75px;
+  height: 75px;
+  margin: 25px auto;
+  display: grid;
+  place-items: center;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  box-shadow: 0 15px 35px rgba(79, 70, 229, 0.4);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 7vw, 3.5rem);
+}
+
+.score {
+  margin: 30px 0;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(151, 166, 255, 0.18);
+  border-radius: 16px;
+  color: #a5adcf;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.score strong {
+  color: #67e8f9;
+  font-size: 1.8rem;
+}
+
+.back-link {
+  min-height: 50px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  color: white;
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.back-link:focus-visible {
+  outline: 3px solid #67e8f9;
+  outline-offset: 4px;
+}

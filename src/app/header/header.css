@@ -1,0 +1,154 @@
+:host {
+  position: relative;
+  z-index: 10;
+  display: block;
+}
+
+.site-header {
+  width: min(1180px, calc(100% - 40px));
+  min-height: 76px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  border-bottom: 1px solid rgba(151, 166, 255, 0.13);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  text-decoration: none;
+}
+
+.brand-symbol {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(165, 180, 252, 0.28);
+  border-radius: 13px;
+  background: linear-gradient(
+    145deg,
+    rgba(124, 58, 237, 0.85),
+    rgba(37, 99, 235, 0.78)
+  );
+  box-shadow: 0 10px 26px rgba(70, 70, 220, 0.27);
+  transform: rotate(45deg);
+}
+
+.brand-symbol::before,
+.brand-symbol::after,
+.brand-symbol span {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+}
+
+.brand-symbol::before {
+  width: 20px;
+  height: 8px;
+}
+
+.brand-symbol::after {
+  width: 8px;
+  height: 20px;
+}
+
+.brand-symbol span {
+  width: 5px;
+  height: 5px;
+  background: white;
+  box-shadow: 0 0 9px white;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-text strong {
+  font-size: 1.03rem;
+  letter-spacing: -0.02em;
+}
+
+.brand-text strong span {
+  color: #8ea7ff;
+}
+
+.brand-text small {
+  max-width: 210px;
+  overflow: hidden;
+  color: #747fa8;
+  font-size: 0.67rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+nav a {
+  position: relative;
+  padding: 28px 0;
+  color: #9ca6c9;
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 20px;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #8b5cf6, #22d3ee);
+  transform: scaleX(0);
+  transition: transform 180ms ease;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  color: white;
+}
+
+nav a:hover::after,
+nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+nav a:focus-visible,
+.brand:focus-visible {
+  outline: 3px solid rgba(103, 232, 249, 0.7);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+@media (max-width: 540px) {
+  .site-header {
+    width: min(100% - 28px, 1180px);
+  }
+
+  nav {
+    gap: 15px;
+  }
+
+  nav a {
+    font-size: 0.72rem;
+  }
+
+  .brand-text small {
+    max-width: 120px;
+  }
+}

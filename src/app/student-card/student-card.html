@@ -1,0 +1,48 @@
+<article class="student-card">
+
+  <div class="card-glow" aria-hidden="true"></div>
+
+  <div class="card-top">
+    <div class="student-avatar" aria-hidden="true">
+      {{ name.charAt(0) }}
+    </div>
+
+    <span class="student-status">
+      Active
+    </span>
+  </div>
+
+  <div class="student-information">
+    <p class="student-label">Student profile</p>
+
+    <h3>{{ name }}</h3>
+
+    @if (showDetails) {
+      <div class="score-information">
+        <div class="score-heading">
+          <span>Current score</span>
+          <strong>{{ score }}</strong>
+        </div>
+
+        <div
+          class="score-track"
+          role="progressbar"
+          aria-label="Student score"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          [attr.aria-valuenow]="score"
+        >
+          <div
+            class="score-progress"
+            [style.width.%]="score">
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="score-hidden">
+        Score currently hidden
+      </div>
+    }
+  </div>
+
+</article>

@@ -1,0 +1,151 @@
+<main class="detail-page">
+
+  @if (loading()) {
+
+    <article class="detail-card">
+
+      <p class="label">
+        LOADING
+      </p>
+
+      <h1>
+        Loading student record...
+      </h1>
+
+    </article>
+
+  } @else if (errorMessage()) {
+
+    <article class="detail-card">
+
+      <p class="label">
+        ERROR
+      </p>
+
+      <h1>
+        Unable to load student
+      </h1>
+
+      <p>
+        {{ errorMessage() }}
+      </p>
+
+      <button
+        type="button"
+        class="back-link"
+        (click)="loadStudent()"
+      >
+        Try again
+      </button>
+
+      <a
+        routerLink="/"
+        class="back-link"
+      >
+        Back to student directory
+      </a>
+
+    </article>
+
+  } @else if (student(); as selectedStudent) {
+
+    <article class="detail-card">
+
+      <p class="label">
+        STUDENT DETAILS
+      </p>
+
+      <div
+        class="avatar"
+        aria-hidden="true"
+      >
+        {{ selectedStudent.name.charAt(0) }}
+      </div>
+
+      <h1>
+        {{ selectedStudent.name }}
+      </h1>
+
+      <div class="score">
+        <span>Record number</span>
+        <strong>{{ selectedStudent.id }}</strong>
+      </div>
+
+      <div class="student-contact">
+
+        <p>
+          <strong>Username:</strong>
+          {{ selectedStudent.username }}
+        </p>
+
+        <p>
+          <strong>Email:</strong>
+          {{ selectedStudent.email }}
+        </p>
+
+        <p>
+          <strong>Phone:</strong>
+          {{ selectedStudent.phone }}
+        </p>
+
+        <p>
+          <strong>Website:</strong>
+          {{ selectedStudent.website }}
+        </p>
+
+        <p>
+          <strong>Address:</strong>
+          {{ selectedStudent.address.street }},
+          {{ selectedStudent.address.suite }}
+        </p>
+
+        <p>
+          <strong>City:</strong>
+          {{ selectedStudent.address.city }}
+        </p>
+
+        <p>
+          <strong>Postcode:</strong>
+          {{ selectedStudent.address.zipcode }}
+        </p>
+
+        <p>
+          <strong>Company:</strong>
+          {{ selectedStudent.company.name }}
+        </p>
+
+      </div>
+
+      <a
+        routerLink="/"
+        class="back-link"
+      >
+        Back to student directory
+      </a>
+
+    </article>
+
+  } @else {
+
+    <article class="detail-card">
+
+      <p class="label">
+        NOT FOUND
+      </p>
+
+      <h1>
+        Student not found
+      </h1>
+
+      <a
+        routerLink="/"
+        class="back-link"
+      >
+        Back to student directory
+      </a>
+
+    </article>
+
+  }
+
+</main>

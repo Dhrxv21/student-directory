@@ -1,0 +1,492 @@
+<div class="page-shell">
+
+  <!-- Decorative snow animation -->
+  <div class="snow" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <main>
+
+    <!-- Main page introduction -->
+    <section
+      class="hero"
+      aria-labelledby="hero-title"
+    >
+
+      <div class="hero-content">
+
+        <p class="eyebrow">
+          STUDENT PERFORMANCE PLATFORM
+        </p>
+
+        <h1 id="hero-title">
+          Student records,
+          <span>clearly presented.</span>
+        </h1>
+
+        <p class="hero-description">
+          Search the student directory, add new students,
+          save favourites and view individual student records.
+        </p>
+
+      </div>
+
+      <!-- CSS-only 3D visual -->
+      <div
+        class="visual-area"
+        aria-hidden="true"
+      >
+
+        <div class="scene">
+
+          <div class="scene-glow"></div>
+
+          <div class="orbit-system">
+
+            <div class="orbit orbit-one">
+              <span class="orbit-node node-purple"></span>
+            </div>
+
+            <div class="orbit orbit-two">
+              <span class="orbit-node node-blue"></span>
+            </div>
+
+            <div class="orbit orbit-three">
+              <span class="orbit-node node-cyan"></span>
+            </div>
+
+            <div class="score-core">
+
+              <div class="core-highlight"></div>
+
+              <strong>
+                {{ students().length }}
+              </strong>
+
+              <span>STUDENTS</span>
+
+            </div>
+
+          </div>
+
+          <div class="floating-panel panel-one">
+
+            <span class="panel-icon purple-icon"></span>
+
+            <div>
+              <strong>Student records</strong>
+              <small>Directory overview</small>
+            </div>
+
+          </div>
+
+          <div class="floating-panel panel-two">
+
+            <span class="panel-icon blue-icon"></span>
+
+            <div>
+              <strong>Student search</strong>
+              <small>Find records quickly</small>
+            </div>
+
+          </div>
+
+          <div class="floating-panel panel-three">
+
+            <span class="panel-icon cyan-icon"></span>
+
+            <div>
+              <strong>Favourite students</strong>
+              <small>Save important records</small>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Student directory section -->
+    <section
+      id="scores"
+      class="score-section"
+      aria-labelledby="score-title"
+    >
+
+      <!-- Directory heading -->
+      <div class="section-heading">
+
+        <div>
+
+          <p class="eyebrow">
+            STUDENT DIRECTORY
+          </p>
+
+          <h2 id="score-title">
+            Student records
+          </h2>
+
+          <p>
+            Search for a student, add a new record,
+            save favourites or select a card to view
+            complete student details.
+          </p>
+
+        </div>
+
+        <div class="status-badge">
+          <span aria-hidden="true"></span>
+          Directory active
+        </div>
+
+      </div>
+
+      <!-- Search and action controls -->
+      <div class="directory-controls">
+
+        <!-- Student search input -->
+        <label class="search-field">
+
+          <span class="visually-hidden">
+            Search students
+          </span>
+
+          <span
+            class="search-icon"
+            aria-hidden="true">
+          </span>
+
+          <input
+            type="search"
+            [(ngModel)]="searchTerm"
+            placeholder="Search students..."
+            autocomplete="off"
+          >
+
+        </label>
+
+        <!-- Directory action buttons -->
+        <div class="directory-actions">
+
+          <a
+            routerLink="/add-student"
+            class="add-student-button"
+          >
+            <span aria-hidden="true">+</span>
+            Add new student
+          </a>
+
+          <button
+            class="score-toggle"
+            type="button"
+            (click)="toggleDetails()"
+          >
+
+            <span
+              class="eye-icon"
+              aria-hidden="true">
+            </span>
+
+            Show / Hide Details
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- Favourites-only filter -->
+      <label class="favourites-filter">
+
+        <input
+          type="checkbox"
+          name="showFavouritesOnly"
+          [(ngModel)]="showFavouritesOnly"
+        >
+
+        <span>
+          Show favourites only
+        </span>
+
+      </label>
+
+      <!-- Loading state -->
+      @if (loading()) {
+
+        <div
+          class="message-panel"
+          role="status"
+          aria-live="polite"
+        >
+
+          <div
+            class="loading-spinner"
+            aria-hidden="true">
+          </div>
+
+          <div>
+
+            <h3>
+              Loading students...
+            </h3>
+
+            <p>
+              Retrieving student records from the API.
+            </p>
+
+          </div>
+
+        </div>
+
+      } @else if (errorMessage()) {
+
+        <!-- Error state -->
+        <div
+          class="message-panel error-panel"
+          role="alert"
+        >
+
+          <div
+            class="error-symbol"
+            aria-hidden="true"
+          >
+            !
+          </div>
+
+          <div>
+
+            <h3>
+              Unable to load students
+            </h3>
+
+            <p>
+              {{ errorMessage() }}
+            </p>
+
+            <button
+              class="retry-button"
+              type="button"
+              (click)="loadStudents()"
+            >
+              Try again
+            </button>
+
+          </div>
+
+        </div>
+
+      } @else {
+
+        <!-- Student results grid -->
+        <div class="student-grid">
+
+          @for (
+            student of filteredStudents;
+            track student.id
+          ) {
+
+            <!--
+              Wrapper containing the student card
+              and its favourite button.
+            -->
+            <article class="student-item">
+
+              <!-- Opens the selected student page -->
+              <a
+                class="student-link"
+                [routerLink]="[
+                  '/student',
+                  student.id
+                ]"
+              >
+
+                <app-student-card
+                  [name]="student.name"
+                  [score]="student.score ?? student.id"
+                  [showDetails]="showDetails">
+                </app-student-card>
+
+              </a>
+
+              <!-- Favourite toggle button -->
+              <button
+                class="favourite-button"
+                type="button"
+                [class.is-favourite]="student.favourite"
+                [attr.aria-pressed]="student.favourite"
+                (click)="toggleFavourite(student.id)"
+              >
+
+                @if (student.favourite) {
+
+                  ★ Remove favourite
+
+                } @else {
+
+                  ☆ Add favourite
+
+                }
+
+              </button>
+
+            </article>
+
+          } @empty {
+
+            <!-- Empty search or favourites state -->
+            <div class="empty-state">
+
+              <div
+                class="empty-icon"
+                aria-hidden="true"
+              >
+                ?
+              </div>
+
+              @if (showFavouritesOnly) {
+
+                <h3>
+                  No favourite students
+                </h3>
+
+                <p>
+                  Mark a student as a favourite
+                  to display the student here.
+                </p>
+
+              } @else {
+
+                <h3>
+                  No students found
+                </h3>
+
+                <p>
+                  Try entering another name
+                  in the search box.
+                </p>
+
+              }
+
+            </div>
+
+          }
+
+        </div>
+
+      }
+
+    </section>
+
+    <!-- Platform information section -->
+    <section
+      id="about"
+      class="about-section"
+      aria-labelledby="about-title"
+    >
+
+      <p class="eyebrow">
+        ABOUT THE PLATFORM
+      </p>
+
+      <h2 id="about-title">
+        A clearer way to manage student records
+      </h2>
+
+      <p>
+        Student records are loaded from an API and
+        displayed in a responsive directory. Students
+        can be searched, added temporarily and saved
+        as favourites while the application is running.
+      </p>
+
+      <div class="feature-grid">
+
+        <!-- Search feature -->
+        <article>
+
+          <span>01</span>
+
+          <h3>
+            Search students
+          </h3>
+
+          <p>
+            Enter a student's name to filter
+            the loaded directory records.
+          </p>
+
+        </article>
+
+        <!-- Add Student feature -->
+        <article>
+
+          <span>02</span>
+
+          <h3>
+            Add students
+          </h3>
+
+          <p>
+            Use the reactive form to add a new
+            student name and score.
+          </p>
+
+        </article>
+
+        <!-- Favourites feature -->
+        <article>
+
+          <span>03</span>
+
+          <h3>
+            Save favourites
+          </h3>
+
+          <p>
+            Mark students as favourites and filter
+            the directory to show only those records.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Page footer -->
+  <footer class="site-footer">
+
+    <p>
+      Student Performance Platform
+    </p>
+
+    <p>
+      Built with Angular, HTML and CSS
+    </p>
+
+  </footer>
+
+</div>
