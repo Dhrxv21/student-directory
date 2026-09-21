@@ -189,3 +189,12 @@ h3 {
 /* Test comment. */
 
 /* Keeps the student card styling separate and reusable. */
+
+/* Small UI enhancement for the student avatar */
+.student-avatar {
+  transition: transform 180ms ease;
+}
+
+.student-card:hover .student-avatar {
+  transform: scale(1.08);
+}
